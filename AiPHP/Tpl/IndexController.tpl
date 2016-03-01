@@ -1,6 +1,6 @@
 <?php
 namespace Home\Controller;
-use AI\Base;
+use AI\Base\Controller;
 
 class IndexController extends Base\Controller {
 

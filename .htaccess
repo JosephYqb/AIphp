@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteRule ^log/(.*)$ 1 [QSA,PT,L]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^/]*)/([^/]*)/([^/]*)?(.*)$ index.php?AIModel=$1&AIController=$2&AIAction=$3$4 [QSA,PT,L]
+# 忽略 Model
+RewriteRule ^([^/]*)/([^/]*)?(.*)$ index.php?AIController=$1&AIAction=$2$3 [QSA,PT,L]
+RewriteRule ^/(.*)$ index.php?$1 [QSA,PT,L]
+</IfModule>
+
+ # nginx 重写规则
+ #  location / {
+ #       if (!-f $request_filename) {
+ #             rewrite ^/([^/]*)/([^/]*)/([^/]*)?(.*)$ /index.php?AIModel=$1&AIController=$2&AIAction=$3$4 last;
+ #             rewrite ^/([^/]*)/([^/]*)?(.*)$ /index.php?AIController=$1&AIAction=$2$3  last;
+ #             rewrite ^/(.*)$ /index.php?$1 last;
+ #             break;
+ #
+ #       }
+ #  }
+

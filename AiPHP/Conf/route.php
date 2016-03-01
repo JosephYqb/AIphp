@@ -14,5 +14,6 @@ return array(
     'DEFAULT_CONTROLLER'    =>  'Index', // 默认控制器名称
     'DEFAULT_ACTION'        =>  'index', // 默认操作名称
     'DEFAULT_CHARSET'       =>  'utf-8', // 默认输出编码
+    'URl_MODEL'             =>    0  //url 样式  0 重写 ，1带model 的重写，2 不带home 的重写
 
 );

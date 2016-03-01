@@ -2,7 +2,7 @@
 namespace AI;
 
 /**
- * Created by PhpStorm.
+ * 框架入口
  * User: Joseph
  * Date: 2016/2/23
  * Time: 17:15
@@ -26,13 +26,7 @@ final class AI
 
     public static function  run()
     {
-        $model      = \AiUrl::getModel();
-        $action     = \AiUrl::getAction();
-        $controller = \AiUrl::getController();
-        //todo 优化
-        $result = '\\' . $model . '\\Controller\\' . $controller . 'Controller';
-
-        (new $result())->$action();
+        Base\App::run();
     }
 
 
@@ -40,7 +34,7 @@ final class AI
     private static function init()
     {
         define('AI_PATH', dirname(__FILE__) . '/');
-        require AI_PATH . 'Base/ini.config.php';
+        require AI_PATH . 'Common/ini.config.php';
 
         // 是否开启报错
         if (APP_DEBUG) {
@@ -51,12 +45,7 @@ final class AI
             ini_set("display_errors", 0);
         }
 
-        require AI_PATH . 'Base/function.php';
-        require AI_PATH . 'Base/AiUrl.php';
-
-        //todo 是否使用命名空间
-        require AI_PATH . 'Base/Controller.php';
-        require AI_PATH . 'Base/Model.php';
+        require AI_PATH . 'Common/function.php';
 
         self::loadConf(AI_PATH . 'Conf/');
     }
@@ -84,6 +73,7 @@ final class AI
             is_dir(APP_PATH . $v . 'Controller') or mkdir(APP_PATH . $v . 'Controller', 0777, true);
             is_dir(APP_PATH . $v . 'Model') or mkdir(APP_PATH . $v . 'Model', 0777, true);
             is_dir(APP_PATH . $v . 'Conf') or mkdir(APP_PATH . $v . 'Conf', 0777, true);
+            is_dir(APP_PATH . $v . 'Common') or mkdir(APP_PATH . $v . 'Common', 0777, true);
             is_dir(APP_PATH . $v . 'View/Index') or mkdir(APP_PATH . $v . 'View/Index', 0777, true);
             copy(AI_PATH . '/Tpl/IndexController.Tpl', APP_PATH . $v . 'Controller/IndexController' . EXT);
             copy(AI_PATH . '/Tpl/IndexModel.Tpl', APP_PATH . $v . 'Model/IndexModel' . EXT);

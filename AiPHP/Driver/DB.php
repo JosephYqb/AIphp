@@ -1,5 +1,5 @@
 <?php
-namespace Driver;
+namespace AI\Driver;
 /**
  * 数据库工厂模式，支持多驱动，多配置.
  * User: Joseph
@@ -24,7 +24,7 @@ class DB
             require DRIVER_PATH . 'DB/' . $engine . '.php';
         }
         if (!isset(self::$_driver[$engine][$database])) {
-            self::$_driver[$engine][$database] = $engine::connect($database);
+            self::$_driver[$engine][$database] = $engine::run($database);
         }
 
         return self::$_driver[$engine][$database];

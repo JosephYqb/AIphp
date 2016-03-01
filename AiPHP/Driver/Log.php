@@ -1,5 +1,5 @@
 <?php
-namespace Driver;
+namespace AI\Driver;
 /**
  * Created by PhpStorm.
  * User: Joseph

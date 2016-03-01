@@ -1,15 +1,19 @@
 <?php
 namespace Home\Controller;
 
-use AI\Base;
+use AI\Base\Controller;
 
-class IndexController extends Base\Controller
+class IndexController extends Controller
 {
 
     public function Index()
     {
+        d($_REQUEST);
        // $this->display('Index/Index');
 
-     db();
+   //  j(db()->query('show databases'));
+     //j(db()->query('show tables'));
+        //db()->table
+      //  sleep(10);
     }
 }
