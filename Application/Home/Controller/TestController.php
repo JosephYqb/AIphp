@@ -20,13 +20,16 @@ class TestController extends Controller
     public function test2()
     {
 
-        $a = db()->table('t')->select();
+        $a = db()->table('user')->select();
         j($a);
     }
 
 
     public function test3(){
-        $a = db()->table('t')->save();
+        db()->table('t')->save( array(
+            'id'=>'1',
+            'name'=>'1'
+        ));
     }
 
 }

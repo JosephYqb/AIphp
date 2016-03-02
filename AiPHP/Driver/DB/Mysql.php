@@ -87,20 +87,35 @@ class Mysql
         return $list;
     }
 
-    //todo !!!!!!!!!
+    //调用前请 添加where
+    public function update($data)
+    {
+        if (empty($this->options['where'])) {
+            E("不允许全表跟新数据");
+        }
+
+        $sql = 'UPDATE ' . $this->options['pre_fix'] . $this->options['table'] . $data;
+
+        $this->exec($sql);
+    }
+
     public function save($data)
     {
         if (is_array($data)) {
 
+            //todo 优化
             if (count($data) > 0) {
-                $data_string = ' SET ';
-                foreach ($data as $i => $v) {
-                    $data_string .= $i . '=' . '`' . $v . '`';
-                }
-                $data = $data_string;
+                $name  = '( ' . implode(array_keys($data), ', ') . ' )';
+                $value = '(\'' . implode($data, '\',\'') . '\')';
+                $data  = $name . ' value ' . $value;
+            } else {
+                $data = '() value()';
             }
+        } else {
+            $data = ' SET ' . $data;
         }
         $sql = 'INSERT INTO  ' . $this->options['pre_fix'] . $this->options['table'] . $data;
+
         $this->exec($sql);
     }
 

@@ -10,7 +10,7 @@ return array(
         'username'          =>  'root',      // 用户名
         'password'          =>  '',          // 密码
         'port'              =>  '3306',      // 端口
-        'pre_fix'           =>  '',          //  数据库表前缀
+        'pre_fix'           =>  'ai_',          //  数据库表前缀
         'charset'           =>  'utf8',      // 数据库编码默认采用utf8
     )
 );

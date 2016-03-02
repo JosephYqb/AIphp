@@ -13,39 +13,41 @@ class AiUrl
     private static $_action;
     private static $_model;
 
-    //初始化 todo 是否程序内部实现 类似重新 （/home/model/action）
-    public function run(){
+    //初始化 路由分发（使用了重写规则，暂不写该方法）
+    public static function dispatch()
+    {
+
+        // $_SERVER['PATH_INFO'] 中获取数据
+        //array_shift
 
     }
 
-    //生成url
-    public static  function create($url,$model = ''){
-if($model===''){
-    $model = C('URl_MODEL');
-}
-        switch($model){
+    /**
+     * 生成 url
+     *
+     * @param  string|int  $url 0 不重写 ，1带model 的重写，2 不带home 的重写
+     * @param  string      $model
+     *
+     * @return string  生成的url
+     */
+    public static function create($url, $model = '')
+    {
+        if ($model === '') {
+            $model = C('URl_MODEL');
+        }
+        switch ($model) {
             case 2:
-
 
                 break;
             case 1:
 
-
-
-
                 break;
             default:
 
-
-
-
-
                 break;
-
-
-
         }
 
+        return $url;
     }
 
     public static function getController()
