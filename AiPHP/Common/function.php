@@ -73,7 +73,7 @@ function E($message = '', $code = 0)
  * @param mixed        $default 默认值
  *
  * @return mixed
- */
+ *
 function C($name = null, $value = null, $default = null)
 {
     static $_config = array();
@@ -110,6 +110,53 @@ function C($name = null, $value = null, $default = null)
     }
 
     return null; // 避免非法参数
+}*/
+
+/**
+ *  AI 配置文件函数
+ *
+ * 载入方法 AC(array())保存文件
+ * 修改数据方法
+ *    C("AI")=“AI”
+ *    或
+ *    $conf  = & C('AI');
+ *    $conf  = "AI"
+ *
+ *
+ * 支持 二级修改和读取
+ *
+ * @param $name
+ *
+ * @return array|null
+ */
+function &C($name)
+{
+    static $_config = array();
+    if (is_array($name)) {
+        $_config = array_merge($_config, array_change_key_case($name, CASE_UPPER));
+        return null;
+    }
+    if(empty($name)){
+        return $_config;
+    }
+    if (is_string($name)) {
+        if (strpos($name, '.')) {
+            $name    = explode('.', $name);
+            $name[0] = strtoupper($name[0]);
+            if (is_null($name)) {
+                return $_config[$name[0]];
+            } else {
+                return $_config[$name[0]][$name[1]];
+            }
+        } else {
+            $name = strtoupper($name);
+
+            return $_config[$name];
+        }
+    } else {
+        // 避免非法参数
+        return null;
+    }
 }
 
 // json 格式输出数组
@@ -117,23 +164,6 @@ function j($arr)
 {
     header("Content-type: application/json");
     echo json_encode($arr);
-}
-
-// todo 修改
-function __autoload($class)
-{
-    $class = str_replace("\\", '/', $class);
-    //框架中的类
-    if (substr($class, 0, 2) === 'AI') {
-        AiRequire(AI_PATH . substr($class, 2) . '.php');
-    } else {
-        //是Controller 或 Model
-        if (substr($class, -10) == 'Controller' || substr($class, -5) == 'Model') {
-            AiRequire(APP_PATH . $class . EXT);
-        } else {
-            E("无法找到类： $class");
-        }
-    }
 }
 
 // 加载文件前判断文件是否在，不存在抛出异常

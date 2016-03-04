@@ -35,6 +35,8 @@ final class AI
     {
         define('AI_PATH', dirname(__FILE__) . '/');
         require AI_PATH . 'Common/ini.config.php';
+        //注册自动加载
+        spl_autoload_register(array('self','autoload'));
 
         // 是否开启报错
         if (APP_DEBUG) {
@@ -48,6 +50,19 @@ final class AI
         require AI_PATH . 'Common/function.php';
 
         self::loadConf(AI_PATH . 'Conf/');
+    }
+   public static function autoload($class)
+    {
+        $class = str_replace("\\", '/', $class);
+        //框架中的类
+        if (substr($class, 0, 2) === 'AI') {
+            AiRequire(AI_PATH . substr($class, 2) . '.php');
+        } else {
+            //是Controller 或 Model
+            if (substr($class, -10) == 'Controller' || substr($class, -5) == 'Model') {
+                AiRequire(APP_PATH . $class . EXT);
+            }
+        }
     }
 
     //加载配置
