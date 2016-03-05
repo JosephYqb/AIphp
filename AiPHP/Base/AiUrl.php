@@ -13,19 +13,26 @@ class AiUrl
     private static $_action;
     private static $_model;
 
-    //初始化 路由分发（使用了重写规则，暂不写该方法）
+    //初始化 路由分发
     public static function dispatch()
     {
 
+
         // $_SERVER['PATH_INFO'] 中获取数据
         //array_shift
+		
+		
+		
 
     }
 
     /**
      * 生成 url
      *
-     * @param  string|int  $url 0 不重写 ，1带model 的重写，2 不带home 的重写
+     * @param  string|int  $url 0 不重写 ，
+	                     1   带model 的重写，
+						 2 不带home 的重写
+						 3 带index.php 的重写
      * @param  string      $model
      *
      * @return string  生成的url

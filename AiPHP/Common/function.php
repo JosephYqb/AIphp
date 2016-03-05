@@ -117,7 +117,6 @@ function C($name = null, $value = null, $default = null)
  *
  * 载入方法 AC(array())保存文件
  * 修改数据方法
- *    C("AI")=“AI”
  *    或
  *    $conf  = & C('AI');
  *    $conf  = "AI"
@@ -129,7 +128,7 @@ function C($name = null, $value = null, $default = null)
  *
  * @return array|null
  */
-function &C($name)
+function &C($name='')
 {
     static $_config = array();
     if (is_array($name)) {

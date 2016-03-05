@@ -25,6 +25,7 @@ class App
     public static function run()
     {
         self::beforeRun();
+		AiUrl::dispatch();
         $model      = AiUrl::getModel();
         $action     = AiUrl::getAction();
         $controller = AiUrl::getController();
