@@ -15,6 +15,7 @@ class App
     // 开始应用前
     public static function beforeRun()
     {
+        AiUrl::dispatch();
 
         $conf_path = APP_PATH . '/' . MODEL . '/Conf/';
         //加载应用配置 todo common
@@ -25,15 +26,18 @@ class App
     public static function run()
     {
         self::beforeRun();
-        AiUrl::dispatch();
-
 
         //todo 优化
-        $result = '\\' . MODEL . '\\Controller\\' . CONTROLLER . 'Controller';
+        $controller = '\\' . MODEL . '\\Controller\\' . CONTROLLER . 'Controller';
 
-        // todo ！！！！！
+        if(method_exists($controller,ACTION) ){
+            $controller_class = new $controller;
+            call_user_func(array($controller_class,ACTION));
+        }else{
+           E('控制器'.$controller.'中'. ACTION .'方法存在');
+        }
 
-        (new $result())->ACTION();
+
     }
 
     //结束 运行

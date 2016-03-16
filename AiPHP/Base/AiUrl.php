@@ -36,6 +36,11 @@ class AiUrl
 
             define('MODEL', $model);
         }
+
+
+
+
+
     }
 
     /**

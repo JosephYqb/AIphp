@@ -37,8 +37,8 @@ class TestController extends Controller
      */
     public function test4(){
 
-
-        $this->display('');
+$this->assign('aaa',1000);
+        $this->display('Test/test4.html');
 
     }
 

@@ -7,8 +7,8 @@
  */
 return array(
     // 使用的 模板编译引擎
+
     'COMPILE_DRIVER'=> 'Smarty',
     'COMPILE_CLASS'=> EXTEND_PATH . 'Smarty/Smarty.class.php',
-
 
 );

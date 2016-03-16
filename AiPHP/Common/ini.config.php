@@ -9,7 +9,6 @@
 defined('APP_DEBUG') || define('APP_DEBUG', true);
 defined('APP_PATH') || define('APP_PATH', 'Application/');
 
-define('VIEW_PATH', APP_PATH . '/View');
 define('DRIVER_PATH', AI_PATH . 'Driver/');
 define('EXTEND_PATH', AI_PATH . 'Extend/');
 //define('RUNTIME_PATH', APP_PATH . '/' . MODEL . '/~runTime');
