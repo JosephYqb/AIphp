@@ -115,9 +115,8 @@ function C($name = null, $value = null, $default = null)
 /**
  *  AI 配置文件函数
  *
- * 载入方法 AC(array())保存文件
+ * 载入方法 C(array())保存文件
  * 修改数据方法
- *    或
  *    $conf  = & C('AI');
  *    $conf  = "AI"
  *
@@ -130,10 +129,10 @@ function C($name = null, $value = null, $default = null)
  */
 function &C($name='')
 {
-    static $_config = array();
+    static $_config = array('un_variable','配置项不存在');
     if (is_array($name)) {
         $_config = array_merge($_config, array_change_key_case($name, CASE_UPPER));
-        return null;
+        return $_config['un_variable'];
     }
     if(empty($name)){
         return $_config;
@@ -154,7 +153,7 @@ function &C($name='')
         }
     } else {
         // 避免非法参数
-        return null;
+        return $_config['un_variable'];
     }
 }
 
@@ -165,10 +164,16 @@ function j($arr)
     echo json_encode($arr);
 }
 
-// 加载文件前判断文件是否在，不存在抛出异常
+// 加载文件前判断文件是否在，不存不在抛出异常 类似 required_once(效率会有require_once 高吗？？？)
 function AiRequire($file)
 {
+    static $required_class = array();
+    // 已经加载过的 直接返回
+    if(isset($required_class[$file])){
+        return;
+    }
     if (file_exists($file)) {
+        $required_class[] = array();
         require $file;
     } else {
         E("无法加载文件： $file");

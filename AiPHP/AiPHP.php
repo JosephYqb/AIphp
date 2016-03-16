@@ -12,7 +12,8 @@ final class AI
     //配置文件夹中的文件数组
     public static $configArray = array(
         'db',
-        'route'
+        'route',
+        'compile'
     );
 
 
@@ -33,14 +34,21 @@ final class AI
     //加载系统文件
     private static function init()
     {
+        // 使用到了 5.6 的新特性
+        version_compare(PHP_VERSION ,'5.6','>=') or die('php版本需要大于等于5.6');
+
         define('AI_PATH', dirname(__FILE__) . '/');
         require AI_PATH . 'Common/ini.config.php';
         //注册自动加载
-        spl_autoload_register(array('self','autoload'));
+        spl_autoload_register(array(
+            'self',
+            'autoload'
+        ));
 
         // 是否开启报错
         if (APP_DEBUG) {
-            error_reporting(E_ALL & ~E_NOTICE);
+            //error_reporting(E_ALL & ~E_NOTICE);
+            error_reporting(E_ALL);
             ini_set("display_errors", 1);
         } else {
             error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT);
@@ -51,16 +59,18 @@ final class AI
 
         self::loadConf(AI_PATH . 'Conf/');
     }
-   public static function autoload($class)
+
+    //自动加载
+    public static function autoload($class)
     {
         $class = str_replace("\\", '/', $class);
         //框架中的类
         if (substr($class, 0, 2) === 'AI') {
-            AiRequire(AI_PATH . substr($class, 2) . '.php');
+            require AI_PATH . substr($class, 2) . '.php';
         } else {
             //是Controller 或 Model
             if (substr($class, -10) == 'Controller' || substr($class, -5) == 'Model') {
-                AiRequire(APP_PATH . $class . EXT);
+                require APP_PATH . $class . EXT;
             }
         }
     }

@@ -32,4 +32,16 @@ class TestController extends Controller
         ));
     }
 
+    /**
+     * display 测试
+     */
+    public function test4(){
+
+
+        $this->display('');
+
+    }
+
+
+
 }

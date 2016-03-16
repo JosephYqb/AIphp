@@ -9,31 +9,43 @@ namespace AI\Base;
 
 class AiUrl
 {
-    private static $_controller;
-    private static $_action;
-    private static $_model;
-
-    //初始化 路由分发
+    //初始化 路由分发 主要支持不使
     public static function dispatch()
     {
 
-
         // $_SERVER['PATH_INFO'] 中获取数据
         //array_shift
-		
-		
-		
 
+        if (defined('CONTROLLER')) {
+        } else {
+            $controller = @$_REQUEST['AIController'] != '' ? ucfirst($_REQUEST['AIController']) : C('DEFAULT_CONTROLLER');
+
+            define('CONTROLLER', $controller);
+        }
+
+        if (defined('ACTION')) {
+        } else {
+            $action = @$_REQUEST['AIAction'] != '' ? $_REQUEST['AIAction'] : C('DEFAULT_ACTION');
+            define('ACTION', $action);
+        }
+
+        if (defined('MODEL')) {
+        } else {
+
+            $model = @$_REQUEST['AIModel'] != '' ? ucfirst($_REQUEST['AIModel']) : C('DEFAULT_MODULE');
+
+            define('MODEL', $model);
+        }
     }
 
     /**
      * 生成 url
      *
-     * @param  string|int  $url 0 不重写 ，
-	                     1   带model 的重写，
-						 2 不带home 的重写
-						 3 带index.php 的重写
-     * @param  string      $model
+     * @param  string|int $url 0 不重写 ，
+     *                         1   带model 的重写，
+     *                         2 不带home 的重写
+     *                         3 带index.php 的重写
+     * @param  string     $model
      *
      * @return string  生成的url
      */
@@ -55,33 +67,5 @@ class AiUrl
         }
 
         return $url;
-    }
-
-    public static function getController()
-    {
-        if (isset(self::$_controller)) {
-            return self::$_controller;
-        }
-
-        return self::$_controller = $_REQUEST['AIController'] != '' ? ucfirst($_REQUEST['AIController']) : C('DEFAULT_CONTROLLER');
-    }
-
-    public static function getAction()
-    {
-        if (isset(self::$_action)) {
-            return self::$_action;
-        }
-
-        return self::$_action = $_REQUEST['AIAction'] != '' ? ucfirst($_REQUEST['AIAction']) : C('DEFAULT_ACTION');
-    }
-
-    public static function getModel()
-    {
-
-        if (isset(self::$_model)) {
-            return self::$_model;
-        }
-
-        return self::$_model = $_REQUEST['AIModel'] != '' ? ucfirst($_REQUEST['AIModel']) : C('DEFAULT_MODULE');
     }
 }

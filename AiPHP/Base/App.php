@@ -16,7 +16,7 @@ class App
     public static function beforeRun()
     {
 
-        $conf_path = APP_PATH . AiUrl::getModel() . '/Conf/';
+        $conf_path = APP_PATH . '/' . MODEL . '/Conf/';
         //加载应用配置 todo common
         AI::loadConf($conf_path);
     }
@@ -25,15 +25,15 @@ class App
     public static function run()
     {
         self::beforeRun();
-		AiUrl::dispatch();
-        $model      = AiUrl::getModel();
-        $action     = AiUrl::getAction();
-        $controller = AiUrl::getController();
+        AiUrl::dispatch();
+
 
         //todo 优化
-        $result = '\\' . $model . '\\Controller\\' . $controller . 'Controller';
+        $result = '\\' . MODEL . '\\Controller\\' . CONTROLLER . 'Controller';
 
-        (new $result())->$action();
+        // todo ！！！！！
+
+        (new $result())->ACTION();
     }
 
     //结束 运行

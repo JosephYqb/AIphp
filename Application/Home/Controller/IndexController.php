@@ -6,7 +6,7 @@ use AI\Base\Controller;
 class IndexController extends Controller
 {
 
-    public function Index()
+    public function index()
     {
         d($_REQUEST);
 		d(C());
